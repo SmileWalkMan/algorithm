@@ -21,10 +21,8 @@ public class LockCondition {
 			plist.add("\"P" + mark + "\"");
 			System.out.println(mark + " Produce>>" + plist.get(plist.size() - 1) + ": <list=" + plist.size() + ">");
 			condition.signalAll(); 
-//			System.out.println("after");
 		} catch (Exception e) {
 			e.printStackTrace();
-//			System.out.println("Excetion: " + mark+":"+e.getMessage());
 		} finally {
 			lock.unlock();
 		}
@@ -34,7 +32,6 @@ public class LockCondition {
 		try {
 			Thread.sleep(1000);
 			lock.lock();
-//			
 			while (plist.size() <= 0) {
 				condition.await();
 			}
@@ -49,7 +46,6 @@ public class LockCondition {
 	}
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		LockCondition obj = new LockCondition();
 		for (int i = 0; i < 5; i++) {
 			ProduceThread ct = new ProduceThread(obj, i);
