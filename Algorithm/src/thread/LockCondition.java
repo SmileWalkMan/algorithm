@@ -15,12 +15,11 @@ public class LockCondition {
 
 	public void produce(int mark) {
 		try {
-			
 			Thread.sleep(100);
 			lock.lock();
 			plist.add("\"P" + mark + "\"");
 			System.out.println(mark + " Produce>>" + plist.get(plist.size() - 1) + ": <list=" + plist.size() + ">");
-			condition.signalAll(); 
+			condition.signalAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -44,7 +43,7 @@ public class LockCondition {
 			lock.unlock();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		LockCondition obj = new LockCondition();
 		for (int i = 0; i < 5; i++) {
@@ -78,159 +77,7 @@ class ProduceThread extends Thread {
 
 class ConsumeThread extends Thread {
 	LockCondition obj;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	int mark;
 
 	public ConsumeThread(LockCondition obj, int mark) {
@@ -244,4 +91,3 @@ class ConsumeThread extends Thread {
 		}
 	}
 }
-
