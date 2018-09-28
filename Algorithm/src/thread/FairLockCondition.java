@@ -6,11 +6,12 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class LockCondition {
+public class FairLockCondition {
 
 	List<String> plist = new ArrayList<String>();
 	int mark;
-	Lock lock = new ReentrantLock();
+	//公平锁
+	Lock lock = new ReentrantLock(true);
 	Condition condition = lock.newCondition();
 
 	public void produceSignalAll(int mark) {
@@ -86,48 +87,48 @@ public class LockCondition {
 	/////////////////////////////////////
 	
 	public static void main(String[] args) {
-		LockCondition obj = new LockCondition();
-		for (int i = 0; i < 2; i++) {
+		FairLockCondition obj = new FairLockCondition();
+		for (int i = 0; i < 3; i++) {
 			ProduceThread ct = obj.new ProduceThread(obj, i);
 			ct.start();
 		}
-		for (int i = 1; i < 3; i++) {
+		for (int i = 1; i < 10; i++) {
 			ConsumeThread pt = obj.new ConsumeThread(obj, i);
 			pt.start();
 		}
 	}
 
 	class ProduceThread extends Thread {
-		LockCondition obj;
+		FairLockCondition obj;
 		int mark;
 
-		public ProduceThread(LockCondition obj, int mark) {
+		public ProduceThread(FairLockCondition obj, int mark) {
 			this.obj = obj;
 			this.mark = mark;
 		}
 
 		public void run() {
 			while (true) {
-//				obj.produceSignalAll(mark);
-				obj.produceSignalOne(mark);
+				obj.produceSignalAll(mark);
+//				obj.produceSignalOne(mark);
 			}
 		}
 	}
 
 	class ConsumeThread extends Thread {
-		LockCondition obj;
+		FairLockCondition obj;
 
 		int mark;
 
-		public ConsumeThread(LockCondition obj, int mark) {
+		public ConsumeThread(FairLockCondition obj, int mark) {
 			this.obj = obj;
 			this.mark = mark;
 		}
 
 		public void run() {
 			while (true) {
-//				obj.consumeAwaitAll(mark);
-				obj.consumeAwaitOne(mark);
+				obj.consumeAwaitAll(mark);
+//				obj.consumeAwaitOne(mark);
 			}
 		}
 	}
